@@ -13,3 +13,6 @@ class URL(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now())
     expires_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), default=None, nullable=True)
 
+    click_count: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
+
+

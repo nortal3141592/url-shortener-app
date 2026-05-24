@@ -19,7 +19,7 @@ def create_short_url(db: Annotated[Session, Depends(get_db)], input_url: URLCrea
         short_code = generate_short_code()
 
     new_url = models.URL(
-        original_url = input_url.original_url,
+        original_url = str(input_url.original_url),
         short_code = short_code,
         expires_at = input_url.expires_at
     )
@@ -40,5 +40,9 @@ def redirect_to_url(short_code: str, db: Annotated[Session, Depends(get_db)]):
     
     if url.expires_at is not None and url.expires_at < datetime.now():
         raise HTTPException(status_code=status.HTTP_410_GONE, detail="Url no longer exists")
+    
+    url.click_count += 1
+    db.commit()
+    db.refresh(url)
     
     return RedirectResponse(url.original_url)
