@@ -10,6 +10,6 @@ class URL(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
     original_url: Mapped[str] = mapped_column(String, nullable=False)
     short_code: Mapped[str] = mapped_column(String(8), nullable=False, unique=True)
-    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(UTC))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now())
     expires_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), default=None, nullable=True)
 

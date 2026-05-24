@@ -6,6 +6,7 @@ from app.db.database import get_db
 from sqlalchemy.orm import Session
 from app.models import models
 from app.core.utils import generate_short_code
+from datetime import datetime, UTC
 
 api_router = APIRouter()
 redirect_router = APIRouter()
@@ -36,5 +37,8 @@ def redirect_to_url(short_code: str, db: Annotated[Session, Depends(get_db)]):
 
     if not url:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="URL doesn't exist")
+    
+    if url.expires_at is not None and url.expires_at < datetime.now():
+        raise HTTPException(status_code=status.HTTP_410_GONE, detail="Url no longer exists")
     
     return RedirectResponse(url.original_url)
