@@ -5,7 +5,7 @@ class URLBase(BaseModel):
     original_url: str
 
 class URLCreate(URLBase):
-    pass
+    expires_at : datetime | None = None
 
 class URLResponse(URLBase):
     model_config = ConfigDict(from_attributes=True)
