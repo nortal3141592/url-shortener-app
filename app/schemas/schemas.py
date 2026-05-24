@@ -1,8 +1,8 @@
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, AnyHttpUrl
 from datetime import datetime
 
 class URLBase(BaseModel):
-    original_url: str
+    original_url: AnyHttpUrl
 
 class URLCreate(URLBase):
     expires_at : datetime | None = None
