@@ -46,3 +46,12 @@ def redirect_to_url(short_code: str, db: Annotated[Session, Depends(get_db)]):
     db.refresh(url)
     
     return RedirectResponse(url.original_url)
+
+@api_router.get('/urls/{short_code}', response_model=URLResponse)
+def get_url_info(short_code:str, db: Annotated[Session, Depends(get_db)]):
+    url = db.query(models.URL).filter(models.URL.short_code == short_code).first()
+
+    if not url:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="url info not found")
+    
+    return url

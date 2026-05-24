@@ -13,3 +13,4 @@ class URLResponse(URLBase):
     short_code: str
     created_at: datetime
     expires_at: datetime | None
+    click_count: int
