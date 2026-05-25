@@ -9,12 +9,12 @@
 ## Features
 
 - Shorten any valid URL instantly
-- Custom aliases — use your own short code like `my-brand` instead of a random one
-- Expiry dates — set a date after which the link stops working
-- Click tracking — see how many times a link has been visited
+- Custom aliases: use your own short code like `my-brand` instead of a random one
+- Expiry dates: set a date after which the link stops working
+- Click tracking: see how many times a link has been visited
 - Collision-safe short code generation using Python's `secrets` module
 - Proper HTTP status codes throughout (`201`, `302`, `404`, `409`, `410`)
-- Inline error handling — no crashes, no silent failures
+- Inline error handling: no crashes, no silent failures
 - Clean minimal frontend with a custom date picker and copy-to-clipboard
 
 ---
@@ -184,7 +184,7 @@ POST /api/v1/urls
 ## What I Learnt
 
 ### Backend Architecture
-How to separate concerns properly — models, schemas, services, and routers each have one job. Business logic lives in the service layer, not inside endpoint functions.
+How to separate concerns properly,  models, schemas, services, and routers each have one job. Business logic lives in the service layer, not inside endpoint functions.
 
 ### HTTP at a deeper level
 The difference between `301` and `302` redirects and why it matters. When to use `404` vs `409` vs `410` and what each one actually communicates to the client.
@@ -217,5 +217,4 @@ Why browsers block cross-origin requests and how to configure FastAPI middleware
 ## Author
 
 Built by Palin Jena.
-
 Feel free to open issues, suggest features, or just say hi.
