@@ -13,11 +13,17 @@ redirect_router = APIRouter()
 
 @api_router.post('/urls', response_model=URLResponse, status_code=status.HTTP_201_CREATED)
 def create_short_url(db: Annotated[Session, Depends(get_db)], input_url: URLCreate):
-    short_code = generate_short_code()
-
-    while db.query(models.URL).filter(models.URL.short_code == short_code).first():
+    if input_url.custom_alias is not None:
+        if db.query(models.URL).filter(models.URL.short_code == input_url.custom_alias).first():
+            raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="This custom alias is used by someone else, try again")
+        short_code = input_url.custom_alias
+    
+    else:
         short_code = generate_short_code()
+        while db.query(models.URL).filter(models.URL.short_code == short_code).first():
+            short_code = generate_short_code()
 
+    
     new_url = models.URL(
         original_url = str(input_url.original_url),
         short_code = short_code,
