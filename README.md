@@ -49,6 +49,12 @@ User visits the short URL
 
 ---
 
+## Architecture
+
+![Backend Architecture](docs/architecture.png)
+
+---
+
 ## Project Structure
 
 ```
